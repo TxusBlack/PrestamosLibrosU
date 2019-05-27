@@ -24,7 +24,8 @@ export class MyApp {
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
       { title: 'Registro de Usuarios', component: 'UsersPage' },
-      { title: 'Prestamos', component: 'PrestamosPage' }
+      { title: 'Prestamos', component: 'PrestamosPage' },
+      { title: 'Devoluciones', component: 'DevolucionesPage' }
     ];
 
   }
