@@ -1,12 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-/**
- * Generated class for the LibrosPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
+import { DbProvider } from '../../providers/db/db';
 
 @IonicPage()
 @Component({
@@ -15,11 +9,21 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 })
 export class LibrosPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  public libros: any;
+
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private db: DbProvider
+  ) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad LibrosPage');
+    this.db.obtenerTodosLosLibros().subscribe(libros => {
+      this.libros = libros;
+      console.log(this.libros);
+    });
   }
 
 }

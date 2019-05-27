@@ -9,4 +9,27 @@
 
 <ion-content padding>
 
+  <h2 text-center>Registro de libros</h2>
+
+  <ion-item padding-right>
+    <ion-input type="text" placeholder="Ingrese ISBN"></ion-input>
+  </ion-item>
+  <div padding>
+    <button ion-button block>Leer Código de Barras</button>
+    <button ion-button block color="secondary">Registrar</button>
+  </div>
+
+  <ion-card *ngFor="let lib of libros">
+    <ion-card-header>
+      {{ lib.titulo }}
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>ISBN: </strong> {{ lib.ISBN }}</p>
+      <p><strong>Autor: </strong> {{ lib.autor }}</p>
+      <p><strong>Editorial: </strong> {{ lib.editorial }}</p>
+      <p><strong>Area: </strong> {{ lib.area }}</p>
+      <p><strong>Cantidad: </strong> {{ lib.cantidad }}</p>
+      <p><strong>Disponibles: </strong> {{ lib.disponibles }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
