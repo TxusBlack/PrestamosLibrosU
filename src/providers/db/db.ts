@@ -4,13 +4,13 @@ import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/fire
 import { Observable } from 'rxjs';
 
 export interface Libro {
-  ISBN: string,
-  area: string,
-  autor: string,
-  cantidad: number,
-  disponibles: number,
-  editorial: string,
-  titulo: string
+  ISBN?: string,
+  area?: string,
+  autor?: string,
+  cantidad?: number,
+  disponibles?: number,
+  editorial?: string,
+  titulo?: string
 };
 
 @Injectable()
@@ -24,12 +24,25 @@ export class DbProvider {
     private afs: AngularFirestore
   ) {
     console.log('Hello DbProvider Provider');
+    this.librosCollection = this.afs.collection<Libro>('libros');
   }
 
   obtenerTodosLosLibros() {
-    this.librosCollection = this.afs.collection<Libro>('libros');
     this.libros = this.librosCollection.valueChanges();
     return this.libros;
+  }
+
+  registrarLibro(ISBN, datosLibro) {
+    console.log('ISBN', ISBN);
+    console.log('Datos', datosLibro);
+    return new Promise((resolve, reject) => {
+      this.librosCollection.doc(ISBN).set(datosLibro).then(() => {
+        resolve(true);
+      }).catch((e) => {
+        console.log(e);
+        reject(e);
+      });
+    });
   }
 
 }

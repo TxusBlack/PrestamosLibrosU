@@ -12,11 +12,11 @@
   <h2 text-center>Registro de libros</h2>
 
   <ion-item padding-right>
-    <ion-input type="text" placeholder="Ingrese ISBN"></ion-input>
+    <ion-input type="text" placeholder="Ingrese ISBN" [(ngModel)]="ISBN"></ion-input>
   </ion-item>
   <div padding>
     <button ion-button block>Leer Código de Barras</button>
-    <button ion-button block color="secondary">Registrar</button>
+    <button ion-button block color="secondary" (click)="registrarLibro()" [disabled]="!ISBN">Registrar</button>
   </div>
 
   <ion-card *ngFor="let lib of libros">

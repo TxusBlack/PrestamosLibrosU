@@ -1,0 +1,33 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Registro</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary">ISBN</ion-label>
+      <ion-input type="text" [(ngModel)]="datosLibro.ISBN" [value]="datosLibro.ISBN" [disabled]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Autor</ion-label>
+      <ion-input type="text" [(ngModel)]="datosLibro.autor"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Editorial</ion-label>
+      <ion-input type="text" [(ngModel)]="datosLibro.editorial"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Area</ion-label>
+      <ion-input type="text" [(ngModel)]="datosLibro.area"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Cantidad</ion-label>
+      <ion-input type="number" [(ngModel)]="datosLibro.cantidad"></ion-input>
+    </ion-item>
+    <div padding>
+      <button ion-button block (click)="guardarLibro()">Guardar libro</button>
+    </div>
+  </ion-list>
+</ion-content>

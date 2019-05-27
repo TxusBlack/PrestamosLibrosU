@@ -10,6 +10,7 @@ import { DbProvider } from '../../providers/db/db';
 export class LibrosPage {
 
   public libros: any;
+  public ISBN: any;
 
   constructor(
     public navCtrl: NavController,
@@ -18,12 +19,21 @@ export class LibrosPage {
   ) {
   }
 
+  registrarLibro() {
+    console.log('-', this.ISBN);
+    this.navCtrl.push('RegistrarLibroPage', { isbn: this.ISBN });
+  }
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad LibrosPage');
     this.db.obtenerTodosLosLibros().subscribe(libros => {
       this.libros = libros;
       console.log(this.libros);
     });
+  }
+
+  ionViewWillEnter() {
+   this.ISBN = null;
   }
 
 }
