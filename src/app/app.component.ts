@@ -23,7 +23,8 @@ export class MyApp {
     this.pages = [
       { title: 'Home', component: HomePage },
       { title: 'List', component: ListPage },
-      { title: 'Registro de Usuarios', component: 'UsersPage' }
+      { title: 'Registro de Usuarios', component: 'UsersPage' },
+      { title: 'Prestamos', component: 'PrestamosPage' }
     ];
 
   }
