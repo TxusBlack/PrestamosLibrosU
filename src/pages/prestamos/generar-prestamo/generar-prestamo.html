@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-navbar color="primary">
+    <ion-title>Generar</ion-title>
+  </ion-navbar>
+</ion-header>
+
+<ion-content padding>
+  <ion-list>
+    <ion-item>
+      <ion-label color="primary">ISBN</ion-label>
+      <ion-input type="text" [(ngModel)]="datosPrestamo.ISBN" [value]="datosPrestamo.ISBN" [disabled]="true"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Email</ion-label>
+      <ion-input type="text" [(ngModel)]="datosPrestamo.usuario"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-label color="primary">Libro</ion-label>
+      <ion-input type="text" [(ngModel)]="datosPrestamo.libro"></ion-input>
+    </ion-item>
+    <div padding>
+      <button ion-button block (click)="generarPrestamo()">Guardar libro</button>
+    </div>
+  </ion-list>
+</ion-content>

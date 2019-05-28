@@ -26,7 +26,6 @@
         {{ pres.libro }}
       </ion-card-header>
       <ion-card-content>
-        <p><strong>Usuario: </strong>{{ pres.nombreUsuario }}</p>
         <p><strong>Fecha: </strong>{{pres.fecha.seconds * 1000 | date}}</p>
         <p><strong>Email: </strong>{{ pres.usuario }}</p>
         <button ion-button block margin-top (click)="obtenerDatos(pres.usuario)">Datos del usuario</button>

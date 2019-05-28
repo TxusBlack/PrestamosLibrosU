@@ -19,12 +19,16 @@ export interface Usuario {
   telefono?: number
 };
 
+export interface TimeStamp {
+  seconds?: any,
+  nanoseconds?: any
+};
+
 export interface Prestamo {
   ISBN?: string,
-  nomreUsuario?: string,
   libro?: string,
   activo?: boolean,
-  fecha?: string,
+  fecha?: TimeStamp,
   usuario?: string
 };
 
@@ -103,6 +107,18 @@ export class DbProvider {
   obtenerTodosLosPrestamos() {
     this.prestamos = this.prestamosCollection.valueChanges();
     return this.prestamos;
+  }
+
+  registrarPrestamo(datos) {
+    console.log(datos);
+    return new Promise((resolve, reject) => {
+      this.prestamosCollection.add(datos).then(() => {
+        resolve(true);
+      }).catch((e) => {
+        console.log(e);
+        reject(e);
+      });
+    });
   }
 
 }

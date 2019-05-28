@@ -34,7 +34,7 @@ export class PrestamosPage {
   async registrarPrestamo() {
     const existe = await this.checkExisteIsbn();
     if (existe) {
-      // this.navCtrl.push('');
+      this.navCtrl.push('GenerarPrestamoPage', { isbn: this.ISBN });
       console.log('Si existe el libro');
     } else {
       this.helpers.presentToast('El libro no existe');
@@ -76,6 +76,10 @@ export class PrestamosPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad PrestamosPage');
+  }
+
+  ionViewWillLeave() {
+   this.ISBN = null;
   }
 
 }
