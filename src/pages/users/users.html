@@ -8,5 +8,28 @@
 </ion-header>
 
 <ion-content padding>
-
+  <h2 text-center>Registro de usuarios</h2>
+  
+  <ion-item padding-right>
+    <ion-input type="text" [(ngModel)]="nuevoUsuario.nombre" placeholder="Nombre del usuario"></ion-input>
+  </ion-item>
+  <ion-item padding-right>
+    <ion-input type="email" [(ngModel)]="nuevoUsuario.email" placeholder="Email"></ion-input>
+  </ion-item>
+  <ion-item padding-right>
+    <ion-input type="tel" [(ngModel)]="nuevoUsuario.telefono" placeholder="Telefono"></ion-input>
+  </ion-item>
+  <div padding>
+    <button ion-button block [disabled]="!nuevoUsuario.email && !nuevoUsuario.nombre && !nuevoUsuario.telefono" (click)="registrar()">Registrar</button>
+  </div>
+  
+  <ion-card *ngFor="let us of usuarios">
+    <ion-card-header>
+      {{ us.nombre }}
+    </ion-card-header>
+    <ion-card-content>
+      <p><strong>Email: </strong> {{ us.email }}</p>
+      <p><strong>Email: </strong> {{ us.telefono }}</p>
+    </ion-card-content>
+  </ion-card>
 </ion-content>

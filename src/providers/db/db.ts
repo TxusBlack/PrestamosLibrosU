@@ -13,11 +13,20 @@ export interface Libro {
   titulo?: string
 };
 
+export interface Usuario {
+  nombre?: string,
+  email?: string,
+  telefono?: number
+};
+
 @Injectable()
 export class DbProvider {
 
   private librosCollection: AngularFirestoreCollection<Libro>;
+  private usuariosCollection: AngularFirestoreCollection<Usuario>;
+
   public libros: Observable<Libro[]>;
+  public usuarios: Observable<Usuario[]>;
 
   constructor(
     public http: HttpClient,
@@ -25,18 +34,42 @@ export class DbProvider {
   ) {
     console.log('Hello DbProvider Provider');
     this.librosCollection = this.afs.collection<Libro>('libros');
+    this.usuariosCollection = this.afs.collection<Usuario>('usuarios');
   }
+
+  /**
+   * Registro de Libros
+   */
 
   obtenerTodosLosLibros() {
     this.libros = this.librosCollection.valueChanges();
     return this.libros;
   }
 
-  registrarLibro(ISBN, datosLibro) {
-    console.log('ISBN', ISBN);
+  registrarLibro(datosLibro) {
     console.log('Datos', datosLibro);
     return new Promise((resolve, reject) => {
-      this.librosCollection.doc(ISBN).set(datosLibro).then(() => {
+      this.librosCollection.doc(datosLibro.ISBN).set(datosLibro).then(() => {
+        resolve(true);
+      }).catch((e) => {
+        console.log(e);
+        reject(e);
+      });
+    });
+  }
+
+  /**
+   * Registro de Usuarios
+   */
+  obtenerTodosLosUsuarios() {
+    this.usuarios = this.usuariosCollection.valueChanges();
+    return this.usuarios;
+  }
+
+  registrarUsuario(usuario) {
+    console.log(usuario);
+    return new Promise((resolve, reject) => {
+      this.usuariosCollection.doc(usuario.email).set(usuario).then(() => {
         resolve(true);
       }).catch((e) => {
         console.log(e);

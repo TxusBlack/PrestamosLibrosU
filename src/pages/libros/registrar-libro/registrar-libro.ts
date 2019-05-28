@@ -26,13 +26,13 @@ export class RegistrarLibroPage {
   guardarLibro() {
     this.datosLibro.disponibles = this.datosLibro.cantidad;
     this.helpers.presentLoading();
-    this.db.registrarLibro(this.datosLibro.ISBN, this.datosLibro).then(() => {
+    this.db.registrarLibro(this.datosLibro).then(() => {
       console.log('Ya se guardó');
       this.helpers.closeLoading();
       this.helpers.presentToast('Libro registrado exitosamente!');
       this.navCtrl.pop();
     }).catch(() => {
-      this.helpers.presentToast('Ocurrió un problema, intentelo nuevamente');
+      this.helpers.presentToast('Ocurrió un problema, intentelo nuevamente o hable con el desarrollador');
     });
   }
   
