@@ -9,4 +9,28 @@
 
 <ion-content padding>
 
+  <h2 text-center>Generar préstamo</h2>
+  
+  <ion-item padding-right>
+    <ion-input type="text" placeholder="Ingrese ISBN" [(ngModel)]="ISBN"></ion-input>
+  </ion-item>
+  <div padding>
+    <button ion-button block>Leer Código de Barras</button>
+    <button ion-button block color="secondary" (click)="registrarPrestamo()" [disabled]="!ISBN">Registrar</button>
+  </div>
+
+  <h2 text-center *ngIf="hayPrestamosActivos">Préstamos activos</h2>
+  <div *ngIf="hayPrestamosActivos">
+    <ion-card *ngFor="let pres of prestamos">
+      <ion-card-header>
+        {{ pres.libro }}
+      </ion-card-header>
+      <ion-card-content>
+        <p><strong>Usuario: </strong>{{ pres.nombreUsuario }}</p>
+        <p><strong>Fecha: </strong>{{pres.fecha.seconds * 1000 | date}}</p>
+        <p><strong>Email: </strong>{{ pres.usuario }}</p>
+        <button ion-button block margin-top (click)="obtenerDatos(pres.usuario)">Datos del usuario</button>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

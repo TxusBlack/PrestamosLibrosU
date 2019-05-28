@@ -1,6 +1,6 @@
 import { DbProvider } from './../../../providers/db/db';
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams, ToastController, LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Libro } from '../../../providers/db/db';
 import { HelpersProvider } from '../../../providers/helpers/helpers';
 

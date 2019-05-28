@@ -19,14 +19,25 @@ export interface Usuario {
   telefono?: number
 };
 
+export interface Prestamo {
+  ISBN?: string,
+  nomreUsuario?: string,
+  libro?: string,
+  activo?: boolean,
+  fecha?: string,
+  usuario?: string
+};
+
 @Injectable()
 export class DbProvider {
 
   private librosCollection: AngularFirestoreCollection<Libro>;
   private usuariosCollection: AngularFirestoreCollection<Usuario>;
+  private prestamosCollection: AngularFirestoreCollection<Prestamo>;
 
   public libros: Observable<Libro[]>;
   public usuarios: Observable<Usuario[]>;
+  public prestamos: Observable<Prestamo[]>;
 
   constructor(
     public http: HttpClient,
@@ -35,6 +46,7 @@ export class DbProvider {
     console.log('Hello DbProvider Provider');
     this.librosCollection = this.afs.collection<Libro>('libros');
     this.usuariosCollection = this.afs.collection<Usuario>('usuarios');
+    this.prestamosCollection = this.afs.collection<Prestamo>('prestamos');
   }
 
   /**
@@ -61,9 +73,15 @@ export class DbProvider {
   /**
    * Registro de Usuarios
    */
+
   obtenerTodosLosUsuarios() {
     this.usuarios = this.usuariosCollection.valueChanges();
     return this.usuarios;
+  }
+
+  obtenerInfoUsuario(user) {
+    console.log(user);
+    return this.afs.doc<Usuario>(`usuarios/${user}`).valueChanges();
   }
 
   registrarUsuario(usuario) {
@@ -76,6 +94,15 @@ export class DbProvider {
         reject(e);
       });
     });
+  }
+
+  /**
+   * Préstamos
+   */
+
+  obtenerTodosLosPrestamos() {
+    this.prestamos = this.prestamosCollection.valueChanges();
+    return this.prestamos;
   }
 
 }
