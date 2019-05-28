@@ -32,16 +32,24 @@ export interface Prestamo {
   usuario?: string
 };
 
+export interface Devolucion {
+  ISBN?: string,
+  fecha?: TimeStamp,
+  usuario?: string
+}
+
 @Injectable()
 export class DbProvider {
 
   private librosCollection: AngularFirestoreCollection<Libro>;
   private usuariosCollection: AngularFirestoreCollection<Usuario>;
   private prestamosCollection: AngularFirestoreCollection<Prestamo>;
+  private devolucionCollection: AngularFirestoreCollection<Devolucion>;
 
   public libros: Observable<Libro[]>;
   public usuarios: Observable<Usuario[]>;
   public prestamos: Observable<Prestamo[]>;
+  public devolucion: Observable<Devolucion[]>;
 
   constructor(
     public http: HttpClient,
@@ -51,6 +59,7 @@ export class DbProvider {
     this.librosCollection = this.afs.collection<Libro>('libros');
     this.usuariosCollection = this.afs.collection<Usuario>('usuarios');
     this.prestamosCollection = this.afs.collection<Prestamo>('prestamos');
+    this.devolucionCollection = this.afs.collection<Prestamo>('devoluciones');
   }
 
   /**
@@ -113,6 +122,22 @@ export class DbProvider {
     console.log(datos);
     return new Promise((resolve, reject) => {
       this.prestamosCollection.add(datos).then(() => {
+        resolve(true);
+      }).catch((e) => {
+        console.log(e);
+        reject(e);
+      });
+    });
+  }
+
+  /**
+   * Devoluciones
+   */
+
+  registrarDevolucion(data) {
+    console.log(data);
+    return new Promise((resolve, reject) => {
+      this.devolucionCollection.add(data).then(() => {
         resolve(true);
       }).catch((e) => {
         console.log(e);

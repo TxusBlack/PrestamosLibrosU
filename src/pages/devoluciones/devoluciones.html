@@ -8,5 +8,16 @@
 </ion-header>
 
 <ion-content padding>
-
+  <h2 text-center>Realizar devolución</h2>
+  
+  <ion-item padding-right>
+    <ion-input type="text" placeholder="Ingrese ISBN" [(ngModel)]="ISBN"></ion-input>
+  </ion-item>
+  <ion-item padding-right>
+    <ion-input type="email" placeholder="Email del usuario" [(ngModel)]="usuario"></ion-input>
+  </ion-item>
+  <div padding>
+    <button ion-button block>Leer Código de Barras</button>
+    <button ion-button block color="secondary" (click)="realizarDevolucion()" [disabled]="!ISBN && !usuario">Registrar</button>
+  </div>
 </ion-content>
