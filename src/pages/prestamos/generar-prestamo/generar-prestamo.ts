@@ -22,6 +22,10 @@ export class GenerarPrestamoPage {
   }
 
   generarPrestamo() {
+    /**
+     * TODO:
+     * Restar cantidad disponibles del libro
+     */
     this.datosPrestamo.activo = true;
     this.datosPrestamo.fecha = {
       seconds: Math.floor(Date.now() / 1000),
