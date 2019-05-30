@@ -1,4 +1,5 @@
 import { ToastController, LoadingController, AlertController } from 'ionic-angular';
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { Injectable } from '@angular/core';
 
 @Injectable()
@@ -9,9 +10,26 @@ export class HelpersProvider {
   constructor(
     public toastCtrl: ToastController,
     public loadingCtrl: LoadingController,
-    private alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public barcode: BarcodeScanner
   ) {
     console.log('Hello HelpersProvider Provider');
+  }
+
+  leerBarcode() {
+    return new Promise((resolve, reject) => {
+      this.barcode.scan().then(barcodeData => {
+        if (barcodeData.format === 'EAN_13') {
+          resolve(barcodeData.text);
+        } else {
+          reject(true);
+        }
+        console.log('Barcode data', barcodeData);
+      }).catch(err => {
+        console.log('Error', err);
+        reject(err);
+      });
+    });
   }
 
   presentLoading() {

@@ -17,7 +17,7 @@
     <ion-input type="email" placeholder="Email del usuario" [(ngModel)]="usuario"></ion-input>
   </ion-item>
   <div padding>
-    <button ion-button block>Leer Código de Barras</button>
+    <button ion-button block (click)="readCode()">Leer Código de Barras</button>
     <button ion-button block color="secondary" (click)="realizarDevolucion()" [disabled]="!ISBN && !usuario">Registrar</button>
   </div>
 </ion-content>

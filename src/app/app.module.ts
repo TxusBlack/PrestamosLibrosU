@@ -14,6 +14,7 @@ import { environment } from '../environments/environment';
 import { DbProvider } from '../providers/db/db';
 import { HttpClientModule } from '@angular/common/http';
 import { HelpersProvider } from '../providers/helpers/helpers'; 
+import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
 @NgModule({
   declarations: [
@@ -33,6 +34,7 @@ import { HelpersProvider } from '../providers/helpers/helpers';
   providers: [
     StatusBar,
     SplashScreen,
+    BarcodeScanner,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     DbProvider,
     HelpersProvider

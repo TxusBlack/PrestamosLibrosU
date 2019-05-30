@@ -33,11 +33,32 @@ export class GenerarPrestamoPage {
     };
     this.helpers.presentLoading();
     this.db.registrarPrestamo(this.datosPrestamo).then(() => {
-      this.helpers.closeLoading();
-      this.helpers.presentToast('Préstamo registrado exitosamente!');
-      this.navCtrl.pop();
+      this.restarDisponibles().then(() => {
+        this.helpers.closeLoading();
+        this.helpers.presentToast('Préstamo registrado exitosamente!');
+        this.navCtrl.pop();
+      }).catch(() => {
+        this.helpers.closeLoading();
+        this.helpers.presentToast('Ocurrió un problema, intentelo nuevamente o hable con el desarrollador');
+        this.navCtrl.pop();
+      });
     }).catch(() => {
       this.helpers.presentToast('Ocurrió un problema, intentelo nuevamente o hable con el desarrollador');
+    });
+  }
+
+  restarDisponibles() {
+    return new Promise((resolve,reject) => {
+      this.db.obtenerTodosLosLibros().subscribe(libros => {
+        let libro = libros.find(x => x.ISBN === this.datosPrestamo.ISBN);
+        libro.disponibles -= 1;
+        this.db.editarEnFirebase('libros', this.datosPrestamo.ISBN, libro).then(() => {
+          console.log('Actualización exitosa');
+          resolve()
+        }).catch(() => {
+          reject();
+        });
+      });
     });
   }
 

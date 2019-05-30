@@ -31,6 +31,19 @@ export class PrestamosPage {
     });
   }
 
+  async readCode() {
+    this.helpers.leerBarcode().then(code => {
+      this.ISBN = code;
+      this.registrarPrestamo();
+    }).catch(e => {
+      if (e === true) {
+        this.helpers.presentToast('El código escaneado no pertenece a un código de barras');
+      } else {
+        this.helpers.presentToast('Ocurrió un problema, intentelo nuevamente o hable con el desarrollador');
+      }
+    });
+  }
+
   async registrarPrestamo() {
     const existe = await this.checkExisteIsbn();
     if (existe) {

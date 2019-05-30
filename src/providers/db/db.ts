@@ -146,4 +146,13 @@ export class DbProvider {
     });
   }
 
+  editarEnFirebase(coleccion, id, datos) {
+    return this.afs.collection(coleccion).doc(id).update(datos);
+  }
+  
+  obtenerLibroEspecifico(isbn) {
+    console.log('provider:', isbn);
+    return this.afs.collection('libros', ref => ref.where(isbn, '==', isbn));
+  }
+
 }

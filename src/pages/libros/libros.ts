@@ -1,3 +1,4 @@
+import { HelpersProvider } from './../../providers/helpers/helpers';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { DbProvider } from '../../providers/db/db';
@@ -15,8 +16,22 @@ export class LibrosPage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-    private db: DbProvider
+    private db: DbProvider,
+    private helpers: HelpersProvider
   ) {
+  }
+
+  async readCode() {
+    this.helpers.leerBarcode().then(code => {
+      this.ISBN = code;
+      this.registrarLibro();
+    }).catch(e => {
+      if (e === true) {
+        this.helpers.presentToast('El código escaneado no pertenece a un código de barras');
+      } else {
+        this.helpers.presentToast('Ocurrió un problema, intentelo nuevamente o hable con el desarrollador');
+      }
+    });
   }
 
   registrarLibro() {

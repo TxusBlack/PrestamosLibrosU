@@ -32,9 +32,23 @@ export class DevolucionesPage {
     })
   }
 
+  async readCode() {
+    this.helpers.leerBarcode().then(code => {
+      this.ISBN = code;
+    }).catch(e => {
+      if (e === true) {
+        this.helpers.presentToast('El código escaneado no pertenece a un código de barras');
+      } else {
+        this.helpers.presentToast('Ocurrió un problema, intentelo nuevamente o hable con el desarrollador');
+      }
+    });
+  }
+
   async realizarDevolucion() {
-    const existeISBN = await this.checkExisteIsbn();
-    const existeUser = await this.checkExisteEmail();
+    let existeISBN = this.checkExisteIsbn.bind(this);
+    let existeUser = await this.checkExisteEmail();
+    console.log('existeISBN', existeISBN);
+    console.log('existeUser', existeUser);
     if (existeISBN) {
       if (existeUser) {
         this.alertCtrl.create({
@@ -89,14 +103,13 @@ export class DevolucionesPage {
   }
 
   checkExisteIsbn() {
-    return new Promise(resolve => {
-      this.libros.forEach(libro => {
-        if (libro.ISBN === this.ISBN) {
-          resolve(true);
-        } else {
-          resolve(false);
-        }
-      });
+    this.libros.forEach(libro => {
+      if (parseInt(libro.ISBN) == parseInt(this.ISBN)) {
+        console.log(true);
+        return true;
+      } else {
+        return false;
+      }
     });
   }
 

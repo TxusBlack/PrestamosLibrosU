@@ -15,7 +15,7 @@
     <ion-input type="text" placeholder="Ingrese ISBN" [(ngModel)]="ISBN"></ion-input>
   </ion-item>
   <div padding>
-    <button ion-button block>Leer Código de Barras</button>
+    <button ion-button block (click)="readCode()">Leer Código de Barras</button>
     <button ion-button block color="secondary" (click)="registrarPrestamo()" [disabled]="!ISBN">Registrar</button>
   </div>
 
