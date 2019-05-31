@@ -93,12 +93,34 @@ export class DevolucionesPage {
       usuario: this.usuario
     };
     this.db.registrarDevolucion(this.nuevaDevolucion).then(() => {
-      this.helpers.closeLoading();
-      this.helpers.presentToast('Devolución registrada exitosamente!');
-      this.ISBN = null;
-      this.usuario = null;
+
+      this.sumarDisponibles().then(() => {
+        this.helpers.closeLoading();
+        this.helpers.presentToast('Devolución registrada exitosamente!');
+        this.ISBN = null;
+        this.usuario = null;
+        this.navCtrl.pop();
+      }).catch(() => {
+        this.helpers.closeLoading();
+        this.helpers.presentToast('Ocurrió un problema, intentelo nuevamente o hable con el desarrollador');
+      });
     }).catch(() => {
       this.helpers.presentToast('Ocurrió un problema, intentelo nuevamente o hable con el desarrollador');
+    });
+  }
+
+  sumarDisponibles() {
+    return new Promise((resolve,reject) => {
+      this.db.obtenerTodosLosLibros().subscribe(libros => {
+        let libro = libros.find(x => x.ISBN === this.ISBN);
+        libro.disponibles += 1;
+        this.db.editarEnFirebase('libros', this.ISBN, libro).then(() => {
+          console.log('Actualización exitosa');
+          resolve()
+        }).catch(() => {
+          reject();
+        });
+      });
     });
   }
 

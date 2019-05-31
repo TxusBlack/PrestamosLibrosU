@@ -40,7 +40,6 @@ export class GenerarPrestamoPage {
       }).catch(() => {
         this.helpers.closeLoading();
         this.helpers.presentToast('Ocurrió un problema, intentelo nuevamente o hable con el desarrollador');
-        this.navCtrl.pop();
       });
     }).catch(() => {
       this.helpers.presentToast('Ocurrió un problema, intentelo nuevamente o hable con el desarrollador');
